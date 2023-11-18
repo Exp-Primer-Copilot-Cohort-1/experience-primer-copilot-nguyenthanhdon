@@ -1,16 +1,24 @@
-// create web server
-// 1. load modules      
-var http = require('http'); // http module
-var fs = require('fs');     // file system module
-var url = require('url');   // url module
-var qs = require('querystring'); // querystring module
-var path = require('path'); // path module
-var sanitizeHtml = require('sanitize-html');
+// Create web server
 
-var template = require('./lib/template.js');
-var db = require('./lib/db.js');
-var auth = require('./lib/auth.js');
-var topic = require('./lib/topic.js');
-var comments = require('./lib/comments.js');
+// Import express
+const express = require('express');
+// Create router
+const router = express.Router();
+// Import comment controller
+const commentController = require('../controllers/commentController');
+
+// Get all comments
+router.get('/', commentController.index);
+// Get comment by id
+router.get('/:id', commentController.show);
+// Create new comment
+router.post('/', commentController.store);
+// Update comment
+router.put('/:id', commentController.update);
+// Delete comment
+router.delete('/:id', commentController.destroy);
+
+// Export router
+module.exports = router;
 
 
